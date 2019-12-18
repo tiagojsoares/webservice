@@ -11,5 +11,16 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
 
+
+Route::get('/', 'HomeController@index');
+/*
+Route::get('/{key}/server', [
+    'as' => 'zoap.server.wsdl',
+    'uses' => '\Viewflex\Zoap\ZoapController@server'
+]);
+Route::post('/{key}/server', [
+    'as' => 'zoap.server',
+    'uses' => '\Viewflex\Zoap\ZoapController@server'
+]);
+*/
