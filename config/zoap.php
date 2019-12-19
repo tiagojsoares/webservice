@@ -22,7 +22,7 @@ return [
             ],
             'options'           => []
         ],
-        
+
         'webservice'              => [
             'name'              => 'Demo',
             'class'             => 'Viewflex\Zoap\Demo\DemoService',
