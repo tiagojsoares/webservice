@@ -17,17 +17,15 @@ class HomeController extends Controller
     public function index()
     {
 
-
-
         $timestamp = date('Y-m-d h:i:s');
         $date = date("Y/m/d H:i:s", strtotime("+30 seconds"));
 
-        $dados = HomeController::ObterFuncionarios('1234', '46357120');
+        return $dados = HomeController::ObterFuncionarios('1234', '46357120');
         for ($i = 0; $i < count($dados); $i++) {
             $text1 =  $dados[$i]['Text1'];
-            DB::table('ACVSCore.dbo.perso_Cred')->where('Text1','=',  $text1)->delete();
-            DB::table('ACVSCore.dbo.perso_Card')->where('Text1','=',  $text1)->delete();
-            DB::table('ACVSCore.dbo.personnelWeb')->where('Text1','=',  $text1)->delete();
+            DB::table('ACVSCore.dbo.perso_Cred')->where('Text1', '=',  $text1)->delete();
+            DB::table('ACVSCore.dbo.perso_Card')->where('Text1', '=',  $text1)->delete();
+            DB::table('ACVSCore.dbo.personnelWeb')->where('Text1', '=',  $text1)->delete();
 
             DB::table('ACVSCore.dbo.personnelWeb')->updateOrInsert(
                 [
@@ -106,7 +104,6 @@ class HomeController extends Controller
             DB::table('ACVSCore.dbo.perso_Cred')->where('Text1', $dados[$i]['Text1'])->update([
                 'Time_Stamp' =>  $timestamp
             ]);
-
         }
     }
 
@@ -218,7 +215,70 @@ class HomeController extends Controller
                 'c.PersonnelId'
             )->join('Access.Credential as c', 'c.PersonnelId', '=', 'p.ObjectID')->where('Text1', '=', $text1)->where('Text3', '=', 'PEPSICO')
             ->get(), true);
-        return ($dados);
+
+        $count = count($dados);
+        if ($count === 0) {
+            $dados = json_decode(DB::table('ACVSCore.Access.Personnel as p')
+                ->select(
+                    'p.ObjectID',
+                    'p.Name',
+                    'p.Description',
+                    'p.LastModifiedTime',
+                    'p.LastName',
+                    'p.FirstName',
+                    'p.MiddleName',
+                    'p.PersonnelTypeID',
+                    'p.Disabled',
+                    'p.Text1',
+                    'p.Text2',
+                    'p.Text3',
+                    'p.Text4',
+                    'p.Text5',
+                    'p.Text6',
+                    'p.Text7',
+                    'p.Text8',
+                    'p.Text9',
+                    'p.Text10',
+                    'p.Text11',
+                    'p.Text12',
+                    'p.Text13',
+                    'p.Text14',
+                    'p.Text15',
+                    'p.Text16',
+                    'p.Text17',
+                    'p.Text18',
+                    'p.Text19',
+                    'p.Text20',
+                    'p.Text21',
+                    'p.Text22',
+                    'p.Text23',
+                    'p.Text24',
+                    'p.Text25',
+                    'p.Int1',
+                    'p.Int2',
+                    'p.Int3',
+                    'p.Int4',
+                    'p.Int5',
+                    'p.Int6',
+                    'p.Int7',
+                    'p.Int8',
+                    'p.Int9',
+                    'p.Logical1',
+                    'p.Logical2',
+                    'p.Logical3',
+                    'p.Logical4',
+                    'p.Date1',
+                    'p.Date2',
+                    'p.Date3',
+                    'p.Date4'
+
+                )->where('Text1', '=', $text1)->where('p.Text3', '=', 'PEPSICO')
+                ->get(), true);
+
+            return ($dados);
+        } else {
+            return ($dados);
+        }
     }
     /**
      * Show the form for editing the specified resource.
