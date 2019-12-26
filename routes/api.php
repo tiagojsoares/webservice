@@ -16,4 +16,4 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('ObterFuncionarios/{token}', 'Homecontroller@ObterFuncionarios');
+Route::get('ObterFuncionarios/{token}/{Text1}', 'Homecontroller@ObterFuncionarios');

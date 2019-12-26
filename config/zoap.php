@@ -14,7 +14,7 @@ return [
             ],
             'types'             => [
                 'keyValue'          => 'Viewflex\Zoap\Demo\Types\KeyValue',
-                'product'           => 'Viewflex\Zoap\Demo\Types\Product'
+                'product'           => 'Viewflex\Zoap\Demo\Types\Funcionarios'
             ],
             'strategy'          => 'ArrayOfTypeComplex',
             'headers'           => [
@@ -24,14 +24,14 @@ return [
         ],
 
         'webservice'              => [
-            'name'              => 'Demo',
+            'name'              => 'Webservice',
             'class'             => 'Viewflex\Zoap\Demo\DemoService',
             'exceptions'        => [
                 'Exception'
             ],
             'types'             => [
                 'keyValue'          => 'Viewflex\Zoap\Demo\Types\KeyValue',
-                'product'           => 'Viewflex\Zoap\Demo\Types\Product'
+                'funcionarios'           => 'Viewflex\Zoap\Demo\Types\Funcionarios'
             ],
             'strategy'          => 'ArrayOfTypeComplex',
             'headers'           => [

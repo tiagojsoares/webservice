@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Viewflex\Zoap\Demo\DemoProvider as Provider;
+use Viewflex\Zoap\Demo\Types\Funcionarios;
 
 class HomeController extends Controller
 {
@@ -14,7 +16,98 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //
+
+
+
+        $timestamp = date('Y-m-d h:i:s');
+        $date = date("Y/m/d H:i:s", strtotime("+30 seconds"));
+
+        $dados = HomeController::ObterFuncionarios('1234', '46357120');
+        for ($i = 0; $i < count($dados); $i++) {
+            $text1 =  $dados[$i]['Text1'];
+            DB::table('ACVSCore.dbo.perso_Cred')->where('Text1','=',  $text1)->delete();
+            DB::table('ACVSCore.dbo.perso_Card')->where('Text1','=',  $text1)->delete();
+            DB::table('ACVSCore.dbo.personnelWeb')->where('Text1','=',  $text1)->delete();
+
+            DB::table('ACVSCore.dbo.personnelWeb')->updateOrInsert(
+                [
+
+                    'Time_Stamp' =>  $timestamp,
+                    'First_Name' => $dados[$i]['FirstName'],
+                    'MiddleName' => $dados[$i]['MiddleName'],
+                    'Last_Name' => $dados[$i]['LastName'],
+                    'PersonnelType' => $dados[$i]['PersonnelTypeID'],
+                    'Text25' => $dados[$i]['Text25'],
+                    'Text24' => $dados[$i]['Text24'],
+                    'Text23' => $dados[$i]['Text23'],
+                    'Text22' => $dados[$i]['Text22'],
+                    'Text21' => $dados[$i]['Text21'],
+                    'Text20' => $dados[$i]['Text20'],
+                    'Text19' => $dados[$i]['Text19'],
+                    'Text18' => $dados[$i]['Text18'],
+                    'Text17' => $dados[$i]['Text17'],
+                    'Text16' => $dados[$i]['Text16'],
+                    'Text15' => $dados[$i]['Text15'],
+                    'Text14' => $dados[$i]['Text14'],
+                    'Text13' => $dados[$i]['Text13'],
+                    'Text12' => $dados[$i]['Text12'],
+                    'Text11' => $dados[$i]['Text11'],
+                    'Text10' => $dados[$i]['Text10'],
+                    'Text9' => $dados[$i]['Text9'],
+                    'Text8' => $dados[$i]['Text8'],
+                    'Text7' => $dados[$i]['Text7'],
+                    'Text6' => $dados[$i]['Text6'],
+                    'Text5' => $dados[$i]['Text5'],
+                    'Text4' => $dados[$i]['Text4'],
+                    'Text3' => $dados[$i]['Text3'],
+                    'Text2' => $dados[$i]['Text2'],
+                    'Disabled' => $dados[$i]['Disabled']
+
+                ],
+                ['Text1' => $dados[$i]['Text1']]
+            );
+
+
+
+            DB::table('ACVSCore.dbo.perso_Card')->updateOrInsert(
+                [
+                    'Time_Stamp' => $date,
+                    'CardNumber' => $dados[$i]['CardNumber'],
+                    'Text3' => $dados[$i]['Text3'],
+                    'Text1' => $dados[$i]['Text1'],
+                    //'Card_import' => $dados[$i]['Card_import'],
+                    //'CHUIDFormatKey' => $dados[$i]['CHUIDFormatKey'],
+                    'Disabled' => $dados[$i]['Disabled'],
+                    'Lost' => $dados[$i]['Lost'],
+                    'Stolen' => $dados[$i]['Stolen'],
+                    'AccessType' => $dados[$i]['AccessType']
+                    //'expiration' => $dados[$i]['expiration'],
+                    //'ativation' => $dados[$i]['ativation']
+                ],
+                [
+                    'CardNumber' => $dados[$i]['CardNumber']
+                ]
+            );
+            $PersonnelTypeID = json_decode(DB::table('ACVSCore.Access.PersonnelType')->where('ObjectID', '=', $dados[$i]['PersonnelTypeID'])->select('Name')->get(), true);
+
+            DB::table('ACVSCore.dbo.perso_Cred')->updateOrInsert([
+                'Time_Stamp' => $date,
+                'Clearance_name' => $PersonnelTypeID[0]['Name'],
+                'Text1' => $dados[$i]['Text1'],
+                'Text3' => $dados[$i]['Text3']
+            ]);
+
+            DB::table('ACVSCore.dbo.perso_Card')->where('Text1', $dados[$i]['Text1'])->update([
+                'Time_Stamp' =>  $timestamp
+            ]);
+            DB::table('ACVSCore.dbo.personnelWeb')->where('Text1', $dados[$i]['Text1'])->update([
+                'Time_Stamp' =>  $timestamp
+            ]);
+            DB::table('ACVSCore.dbo.perso_Cred')->where('Text1', $dados[$i]['Text1'])->update([
+                'Time_Stamp' =>  $timestamp
+            ]);
+
+        }
     }
 
     /**
@@ -24,7 +117,12 @@ class HomeController extends Controller
      */
     public function create()
     {
-        //
+        /*
+        if (count($dados) > 1) {
+            return Provider::ObterFuncionarios($dados);
+        } else {
+            return Provider::ObterFuncionarios($dados);
+        }/*/
     }
 
     /**
@@ -48,10 +146,10 @@ class HomeController extends Controller
     {
         //
     }
-    public function ObterFuncionarios($token)
+    public function ObterFuncionarios($token, $text1)
     {
 
-        return DB::table('ACVSCore.Access.Personnel as p')
+        $dados = json_decode(DB::table('ACVSCore.Access.Personnel as p')
             ->select(
                 'p.ObjectID',
                 'p.Name',
@@ -118,8 +216,9 @@ class HomeController extends Controller
                 'c.Lost',
                 'c.Stolen',
                 'c.PersonnelId'
-            )->join('Access.Credential as c', 'c.PersonnelId', '=', 'p.ObjectID')
-            ->get();
+            )->join('Access.Credential as c', 'c.PersonnelId', '=', 'p.ObjectID')->where('Text1', '=', $text1)->where('Text3', '=', 'PEPSICO')
+            ->get(), true);
+        return ($dados);
     }
     /**
      * Show the form for editing the specified resource.
