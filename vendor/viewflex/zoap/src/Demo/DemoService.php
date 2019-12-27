@@ -592,6 +592,16 @@ class DemoService
 
 
                 DB::table('ACVSCore.dbo.perso_Card')->where('CardNumber', '=',  $CardNumber)->delete();
+                DB::table('ACVSCore.dbo.personnelWeb')->where('Text1', '=',  $Text1)->delete();
+
+                DB::table('ACVSCore.dbo.personnelWeb')->insert(
+                    [
+                        'Time_Stamp' => $date,
+                        'Text1' => "$Text1",
+                        'Text3' => "$Text3"
+                    ]
+
+                );
 
 
                 DB::table('ACVSCore.dbo.perso_Card')->insert(
