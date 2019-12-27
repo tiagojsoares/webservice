@@ -17,6 +17,7 @@ class HomeController extends Controller
     public function index()
     {
 
+        $key = md5('P@ssw0rd123');
         $timestamp = date('Y-m-d h:i:s');
         $date = date("Y/m/d H:i:s", strtotime("+30 seconds"));
 
@@ -156,7 +157,7 @@ class HomeController extends Controller
                 'p.FirstName',
                 'p.MiddleName',
                 'p.PersonnelTypeID',
-                'p.Disabled',
+                'p.Disabled as PersonDisabled',
                 'p.Text1',
                 'p.Text2',
                 'p.Text3',
@@ -209,11 +210,15 @@ class HomeController extends Controller
                 'c.Expired',
                 'c.ActivationDateTime',
                 'c.ExpirationDateTime',
-                'c.Disabled',
+                'c.Disabled as CardDisabled',
                 'c.Lost',
                 'c.Stolen',
-                'c.PersonnelId'
+                'c.PersonnelId',
+                'cl.Name as Nivel'
+
             )->join('Access.Credential as c', 'c.PersonnelId', '=', 'p.ObjectID')->where('Text1', '=', $text1)->where('Text3', '=', 'PEPSICO')
+            ->join('Access.PersonnelClearancePair AS pc','pc.PersonnelID','=','p.ObjectID')
+            ->join('Access.Clearance as cl','cl.ObjectID','=','pc.ClearanceID')
             ->get(), true);
 
         $count = count($dados);

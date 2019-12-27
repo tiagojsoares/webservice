@@ -50,7 +50,7 @@ class Product
     /**
      * @var int
      */
-    public $Disabled;
+    public $PersonDisabled;
 
     /**
      * @var string
@@ -175,6 +175,11 @@ class Product
      */
     public $Text24;
 
+    /**
+     * @var string
+     */
+    public $Text25;
+
 
     /**
      * @var string
@@ -224,6 +229,11 @@ class Product
      */
     public $Int8;
 
+    /**
+     * @var string
+     */
+    public $Int9;
+
 
     /**
      * @var string
@@ -246,10 +256,6 @@ class Product
      */
     public $Logical4;
 
-    /**
-     * @var string
-     */
-    public $Int9;
 
     /**
      * @var string
@@ -316,6 +322,14 @@ class Product
      * @var string
      */
     public $ExpirationDateTime;
+     /**
+     * @var string
+     */
+    public $CardDisabled;
+    /**
+     * @var string
+     */
+    public $Lost;
     /**
      * @var string
      */
@@ -324,6 +338,11 @@ class Product
      * @var string
      */
     public $PersonnelId;
+     /**
+     * @var string
+     */
+    public $NivelAcesso;
+
 
 
 
@@ -338,7 +357,7 @@ class Product
      *@param string $FirstName
      *@param string $MiddleName
      *@param string $PersonnelTypeID
-     *@param string $Disabled
+     *@param string $$PersonDisabled
      *@param string $Text1
      *@param string $Text2
      *@param string $Text3
@@ -391,10 +410,11 @@ class Product
      *@param string $Expired
      *@param string $ActivationDateTime
      *@param string $ExpirationDateTime
-     *@param int $Disabled
+     *@param int $CardDisabled
      *@param string $Lost
      *@param string $Stolen
      *@param string $PersonnelId
+     *@param string $NivelAcesso
      */
 
     public function __construct(
@@ -407,7 +427,7 @@ class Product
         $FirstName,
         $MiddleName,
         $PersonnelTypeID,
-        $Disabled,
+        $PersonDisabled,
         $Text1,
         $Text2,
         $Text3,
@@ -460,12 +480,13 @@ class Product
         $Expired,
         $ActivationDateTime,
         $ExpirationDateTime,
+        $CardDisabled,
         $Lost,
         $Stolen,
-        $PersonnelId
+        $PersonnelId,$NivelAcesso
     ) {
-        $this->id =$id;
-        $this->ObjectID =$ObjectID;
+        $this->id = $id;
+        $this->ObjectID = $ObjectID;
         $this->name = $name;
         $this->Description = $Description;
         $this->LastModifiedTime = $LastModifiedTime;
@@ -473,7 +494,7 @@ class Product
         $this->FirstName = $FirstName;
         $this->MiddleName = $MiddleName;
         $this->PersonnelTypeID = $PersonnelTypeID;
-        $this->Disabled = $Disabled;
+        $this->PersonDisabled = $PersonDisabled;
         $this->Text1 = $Text1;
         $this->Text2 = $Text2;
         $this->Text3 = $Text3;
@@ -526,9 +547,10 @@ class Product
         $this->Expired = $Expired;
         $this->ActivationDateTime = $ActivationDateTime;
         $this->ExpirationDateTime = $ExpirationDateTime;
-        $this->Disabled = $Disabled;
+        $this->CardDisabled = $CardDisabled;
         $this->Lost = $Lost;
         $this->Stolen = $Stolen;
         $this->PersonnelId = $PersonnelId;
+        $this->NivelAcesso = $NivelAcesso;
     }
 }

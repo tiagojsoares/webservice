@@ -116,7 +116,7 @@ class DemoProvider
                     $dados[$i]['FirstName'],
                     $dados[$i]['MiddleName'],
                     $dados[$i]['PersonnelTypeID'],
-                    $dados[$i]['Disabled'],
+                    $dados[$i]['PersonDisabled'],
                     $dados[$i]['Text1'],
                     $dados[$i]['Text2'],
                     $dados[$i]['Text3'],
@@ -169,15 +169,17 @@ class DemoProvider
                     $dados[$i]['Expired'],
                     $dados[$i]['ActivationDateTime'],
                     $dados[$i]['ExpirationDateTime'],
-                    $dados[$i]['Disabled'],
+                    $dados[$i]['CardDisabled'],
                     $dados[$i]['Lost'],
                     $dados[$i]['Stolen'],
-                    $dados[$i]['PersonnelId']
+                    $dados[$i]['PersonnelId'],
+                    $dados[$i]['Nivel'],
+
                 )
             ));
         }
 
-        
+
         $index = $array[0];
         for ($i=1; $i < count($array); $i++) {
             $dados = array_merge($index, $array[$i]);
