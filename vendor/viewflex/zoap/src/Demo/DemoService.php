@@ -345,14 +345,22 @@ class DemoService
      * @param string $token
      * @param string $Text1
      * @return \Viewflex\Zoap\Demo\Types\Product[]
+     * @return bool
      */
 
     public function ObterUsuario($token, $Text1)
     {
-        $dados =  (HomeController::ObterFuncionarios('1234', $Text1));
+        $result = '';
+        $key = md5('P@ssw0rd123');
+        if ($key != $token) {
+            $result = 'Token Invalido';
+        } else {
 
-        return Provider::ObterFuncionarios($dados);
 
+            $dados =  (HomeController::ObterFuncionarios($token, $Text1));
+
+            return Provider::ObterFuncionarios($dados);
+        }
 
 
         //return Provider::authenticate($token, $user, $password);
