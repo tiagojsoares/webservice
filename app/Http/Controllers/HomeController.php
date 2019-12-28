@@ -17,7 +17,7 @@ class HomeController extends Controller
     public function index()
     {
 
-        $key = md5('P@ssw0rd123');
+        return $key = md5('P@ssw0rd123');
         $timestamp = date('Y-m-d h:i:s');
         $date = date("Y/m/d H:i:s", strtotime("+30 seconds"));
 
