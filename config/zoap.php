@@ -5,24 +5,7 @@ return [
     // Service configurations.
 
     'services'          => [
-
-        'demo'              => [
-            'name'              => 'Demo',
-            'class'             => 'Viewflex\Zoap\Demo\DemoService',
-            'exceptions'        => [
-                'Exception'
-            ],
-            'types'             => [
-                'keyValue'          => 'Viewflex\Zoap\Demo\Types\KeyValue',
-                'product'           => 'Viewflex\Zoap\Demo\Types\Funcionarios'
-            ],
-            'strategy'          => 'ArrayOfTypeComplex',
-            'headers'           => [
-                'Cache-Control'     => 'no-cache, no-store'
-            ],
-            'options'           => []
-        ],
-
+        
         'webservice'              => [
             'name'              => 'Webservice',
             'class'             => 'Viewflex\Zoap\Demo\DemoService',

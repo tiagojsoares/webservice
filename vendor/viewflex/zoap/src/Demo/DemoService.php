@@ -344,7 +344,7 @@ class DemoService
      *
      * @param string $token
      * @param string $Text1
-     * @return \Viewflex\Zoap\Demo\Types\Product[]
+     * @return \Viewflex\Zoap\Demo\Types\Funcionarios[]
      */
 
     public function ObterUsuario($token, $Text1)
