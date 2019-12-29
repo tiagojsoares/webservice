@@ -14,10 +14,11 @@ class PersoCard extends Migration
     public function up()
     {
         Schema::create('perso_Card', function (Blueprint $table) {
-            $table->integer('First_Name')->primary();
+
             $table->dateTime('Time_Stamp')->nullable();
             $table->string('Text3');
             $table->string('Text1');
+            $table->string('CardNumber')->primary();
             $table->string('Card_import')->nullable()->default('Default');
             $table->string('CHUIDFormatKey')->nullable()->default('Card Only');
             $table->boolean('Disabled')->nullable();

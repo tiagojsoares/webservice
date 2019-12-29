@@ -15,8 +15,9 @@ class PersoCred extends Migration
     {
         Schema::create('perso_Cred', function (Blueprint $table) {
             $table->dateTime('Time_Stamp')->nullable();
-            $table->string('Text3')->nullable();
+            $table->string('Text3');
             $table->string('Text1')->primary();
+            //$table->string('PersonnelType')->nullable();
             $table->string('Clearance_name')->nullable();
             $table->string('Cred_import')->nullable()->default('Default');
 

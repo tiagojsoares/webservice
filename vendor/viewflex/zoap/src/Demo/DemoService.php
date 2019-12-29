@@ -136,7 +136,7 @@ class DemoService
         } else {
             try {
 
-                $date = date("Y/m/d H:i:s", strtotime("+0 seconds"));
+                $date = date("Y-m-d H:i:s", strtotime("+0 seconds"));
                 $Date15 = date("Y/m/d H:i:s", strtotime("+60 seconds"));
                 DB::table('ACVSCore.dbo.personnelWeb')->where('Text1', '=',  $Text1)->delete();
 
@@ -294,7 +294,7 @@ class DemoService
         } else {
             try {
 
-                $date = date("Y/m/d H:i:s", strtotime("+0 seconds"));
+                $date = date("Y-m-d H:i:s", strtotime("+0 seconds"));
                 DB::table('ACVSCore.dbo.personnelWeb')->where('Text1', '=',  $Text1)->delete();
 
                 DB::table('ACVSCore.dbo.personnelWeb')->insert([
@@ -345,7 +345,6 @@ class DemoService
      * @param string $token
      * @param string $Text1
      * @return \Viewflex\Zoap\Demo\Types\Product[]
-     * @return bool
      */
 
     public function ObterUsuario($token, $Text1)
@@ -374,7 +373,7 @@ class DemoService
     /**
      *
      *@param string $Token
-     *@param string $PersonnelType,
+
      *@param string $Nivel,
      *@param string $Text1,
      *@param string $Text3,
@@ -384,7 +383,7 @@ class DemoService
 
     public function IncluindoAlterandoNivel(
         $Token,
-        $PersonnelType,
+
         $Nivel,
         $Text1,
         $Text3
@@ -399,7 +398,7 @@ class DemoService
 
             try {
 
-                $date = date("Y/m/d H:i:s", strtotime("+0 seconds"));
+                $date = date("Y-m-d H:i:s", strtotime("+0 seconds"));
                 DB::table('ACVSCore.dbo.perso_Cred')->where('Text1', '=',  $Text1)->delete();
 
 
@@ -408,11 +407,12 @@ class DemoService
                         'Time_Stamp' => $date,
                         'Clearance_name' => "$Nivel",
                         'Text3' => $Text3,
-                        'Text1' => $Text1
+                        'Text1' => $Text1,
+                       //'PersonnelType'=>$PersonnelType
                     ]
 
                 );
-
+                /*
 
                 DB::table('ACVSCore.dbo.personnelWeb')
                     ->where('Text1', '=', $Text1)
@@ -421,7 +421,7 @@ class DemoService
                         'PersonnelType' => $PersonnelType
 
                     ]);
-
+/*/
                 $result = 'true';
             } catch (\Throwable $th) {
                 $result = $th;
@@ -459,7 +459,7 @@ class DemoService
 
             try {
 
-                $date = date("Y/m/d H:i:s", strtotime("+0 seconds"));
+                $date = date("Y-m-d H:i:s", strtotime("+0 seconds"));
                 DB::table('ACVSCore.dbo.perso_Cred')->where('Text1', '=',  $Text1)->delete();
 
 
@@ -521,7 +521,7 @@ class DemoService
         } else {
             try {
 
-                $date = date("Y/m/d H:i:s", strtotime("+0 seconds"));
+                $date = date("Y-m-d H:i:s", strtotime("+0 seconds"));
                 $years = date("Y/m/d H:i:s", strtotime("+5 years"));
                 DB::table('ACVSCore.dbo.personnelWeb')->where('Text1', '=',  $Text1)->delete();
                 DB::table('ACVSCore.dbo.perso_Card')->where('CardNumber', '=',  $CardNumber)->delete();
@@ -596,11 +596,11 @@ class DemoService
             try {
 
 
-                $date = date("Y/m/d H:i:s", strtotime("+0 seconds"));
+                $date = date("Y-m-d H:i:s", strtotime("+0 seconds"));
 
 
                 DB::table('ACVSCore.dbo.perso_Card')->where('CardNumber', '=',  $CardNumber)->delete();
-                DB::table('ACVSCore.dbo.personnelWeb')->where('Text1', '=',  $Text1)->delete();
+                /*DB::table('ACVSCore.dbo.personnelWeb')->where('Text1', '=',  $Text1)->delete();
 
                 DB::table('ACVSCore.dbo.personnelWeb')->insert(
                     [
@@ -611,7 +611,7 @@ class DemoService
 
                 );
 
-
+*/
                 DB::table('ACVSCore.dbo.perso_Card')->insert(
                     [
                         'Time_Stamp' => $date,
@@ -635,6 +635,60 @@ class DemoService
         return $result;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Public Methods
+    |--------------------------------------------------------------------------
+    */
+    /**
+     *
+     *@param string $Token
+     *@param string $Text1
+     *@param string $Text3
+     *@return string
+
+     */
+
+    public function DeletarFuncionario(
+        $Token,
+        $Text1,
+        $Text3
+
+    ) {
+        $result = '';
+        $key = md5('P@ssw0rd123');
+        if ($key != $Token) {
+            $result = 'Token Invalido';
+        } else {
+            try {
+
+
+                $date = date("Y-m-d H:i:s", strtotime("+0 seconds"));
+
+
+                DB::table('ACVSCore.dbo.personnelWeb')->where('Text1', '=',  $Text1)->delete();
+
+                DB::table('ACVSCore.dbo.personnelWeb')->insert(
+                    [
+                        'Time_Stamp' => $date,
+                        'Text1' => "$Text1",
+                        'Text3' => "$Text3",
+                        'PER_import' => 'Delete'
+                    ]
+
+                );
+
+
+
+
+
+                $result = 'true';
+            } catch (\Throwable $th) {
+                $result = $th;;
+            }
+        }
+        return $result;
+    }
 
 
 

@@ -19,9 +19,9 @@ class HomeController extends Controller
 
         $key = md5('P@ssw0rd123');
         $timestamp = date('Y-m-d h:i:s');
-        $date = date("Y/m/d H:i:s", strtotime("+30 seconds"));
+        $date = date("Y-m-d H:i:s", strtotime("+30 seconds"));
 
-        return $dados = HomeController::ObterFuncionarios('1234', '46357120');
+        return $dados = HomeController::ObterFuncionarios('1234', '46357122');
         for ($i = 0; $i < count($dados); $i++) {
             $text1 =  $dados[$i]['Text1'];
             DB::table('ACVSCore.dbo.perso_Cred')->where('Text1', '=',  $text1)->delete();
