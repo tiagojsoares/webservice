@@ -211,7 +211,25 @@ class DemoService
         }
         return $result;
     }
-
+    /**
+     * Returns boolean authentication result using given token or user/password.
+     *
+     * @param string $token
+     * @param string $Text1
+     * @return \Viewflex\Zoap\Demo\Types\Funcionarios[]
+     */
+    public function ObterUsuario($token, $Text1)
+    {
+        $result = '';
+        $key = md5('P@ssw0rd123');
+        if ($key != $token) {
+            $result = 'Token Invalido';
+        } else {
+            $dados =  (HomeController::ObterFuncionarios($token, $Text1));
+            return Provider::ObterFuncionarios($dados);
+        }
+        //return Provider::authenticate($token, $user, $password);
+    }
     /*
     |--------------------------------------------------------------------------
     | Public Methods
@@ -407,7 +425,7 @@ class DemoService
         }
         return $result;
     }
-   
+
     /*
     |--------------------------------------------------------------------------
     | Public Methods
@@ -451,7 +469,7 @@ class DemoService
                         'Clearance_name' => "$Nivel",
                         'Text3' => $Text3,
                         'Text1' => $Text1,
-                       //'PersonnelType'=>$PersonnelType
+                        //'PersonnelType'=>$PersonnelType
                     ]
 
                 );
